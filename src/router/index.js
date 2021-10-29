@@ -6,6 +6,7 @@ import Pokemon from '../views/Pokemon'
 import Bitcoin from '../views/Bitcoin'
 import Todo from '../views/Todo'
 import CovidD from '../views/CovidD'
+import UserData from '../views/UserData'
 Vue.use(VueRouter)
 
 const routes = [
@@ -38,6 +39,11 @@ const routes = [
     path:'/covidd',
     name:'CovidD',
     component:CovidD
+  },
+  {
+    path:'/userData',
+    name:'UserData',
+    component:UserData
   },
   {
     path: '/about',
