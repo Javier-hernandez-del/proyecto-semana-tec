@@ -53,6 +53,11 @@ export default {
                 data: datos
             }]
             this.loading=false;
+        },
+        async agregarEntrada(){
+            await this.axios.post('https://backend-semana-tec-javier.herokuapp.com/covidd',{pais: this.pais, estado:this.estado}).then((response)=>{
+                console.log(response);
+            })
         }
     },
 
@@ -64,7 +69,7 @@ export default {
             },
         },
         series: [{
-            name: 'series-1',
+            name: 'casos:',
             data: [30, 40, 45, 50, 49, 60, 70, 91]
         }]
     })

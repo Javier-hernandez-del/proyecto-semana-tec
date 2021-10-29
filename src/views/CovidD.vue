@@ -125,7 +125,7 @@ export default {
                 id:"venezuela",
                 name:"Venezuela"
             }
-        ].sort(),
+        ],
         estados:[
             {
                 id:"confirmed",
@@ -137,7 +137,13 @@ export default {
             }         
         ]       
 
-    })
-    
+    }),
+    methods: {
+        async agregarEntrada(){
+            await this.axios.post('https://backend-semana-tec-javier.herokuapp.com/covidd',{pais: this.selectedPais, estado:this.estado}).then((response)=>{
+                console.log(response);
+            })
+        }
+    }
 }
 </script>

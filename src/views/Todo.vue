@@ -66,7 +66,7 @@ export default {
     }),
     methods:{
         async agregarTodo(){
-            await this.axios.post('https://backend-semana-tec.herokuapp.com/todo',this.newTodo).then((response)=>{
+            await this.axios.post('https://backend-semana-tec-javier.herokuapp.com/todo',this.newTodo).then((response)=>{
                 console.log(response);
                 this.cargarTodos();
             })
@@ -74,13 +74,13 @@ export default {
             this.newTodo.task=""
         },
         async finalizarTodo(id){
-            await this.axios('https://backend-semana-tec.herokuapp.com/todo/complete/'+id).then((response)=>{
+            await this.axios('https://backend-semana-tec-javier.herokuapp.com/todo/complete/'+id).then((response)=>{
                 console.log(response)
                 this.cargarTodos();
             })
         },
         cargarTodos(){
-            this.axios('https://backend-semana-tec.herokuapp.com/todo/list').then((response)=>{
+            this.axios('https://backend-semana-tec-javier.herokuapp.com/todo/list').then((response)=>{
                 this.todos=response.data
             })
         }
