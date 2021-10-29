@@ -6,7 +6,7 @@
       v-if="loading"
     ></v-progress-circular>
 
-        <apexchart v-if="!loading" width="100%" type="line" :options="options" :series="series" v-bind:key="series[0].data"></apexchart>
+        <apexchart v-if="!loading" width="100%" type="area" :options="options" :series="series" v-bind:key="series[0].data[0]"></apexchart>
     </v-container>
 </template>
 
@@ -36,27 +36,19 @@ export default {
             this.loading=true;
             //TODO implementar aquí su llamada deberemos cambiar la data de categories y de data
             var datos=[]
-            var fechas=[]
-            url = ""
-            if (this.estado == "live") {
-                url = 'https://api.covid19api.com/dayone/country/'+this.pais+'/status/confirmed/live'
-            } else {
-                url = 'https://api.covid19api.com/dayone/country/'+this.pais+'/status/'+this.estado
-            }
+            var url = 'https://api.covid19api.com/dayone/country/'+this.pais+'/status/'+this.estado
             await this.axios.get(url).then((response)=>{
                 console.log(response);
-                response.data.prices.forEach(element => {
-                    datos.push(element["Cases"])
-                    fechas.push(element["Date"])
+                response.data.forEach(element => {
+                    var datum = Date.parse(element["Date"]);
+                    var myArr = []
+                    myArr.push(datum)
+                    myArr.push(element["Cases"])
+                    datos.push(myArr)
                 });
 
 
             })
-            this.options={
-                xaxis:{
-                    categories:fechas
-                }
-            }
             this.series = [{
                 data: datos
             }]
@@ -66,15 +58,15 @@ export default {
 
     data: ()=>({
         loading:false,
-      options: {
-        xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        options: {
+            xaxis: {
+            type: 'datetime'
+            },
         },
-      },
-      series: [{
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
-      }]
+        series: [{
+            name: 'series-1',
+            data: [30, 40, 45, 50, 49, 60, 70, 91]
+        }]
     })
 }
 </script>

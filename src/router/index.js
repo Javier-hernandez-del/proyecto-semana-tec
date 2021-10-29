@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Home2 from '../views/Home2.vue'
 import Pokemon from '../views/Pokemon'
 import Bitcoin from '../views/Bitcoin'
 import Todo from '../views/Todo'
+import CovidD from '../views/CovidD'
 Vue.use(VueRouter)
 
 const routes = [
@@ -11,6 +13,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/home2',
+    name: 'Home2',
+    component: Home2
   },
   {
     path: '/pokemon/:pokemon',
@@ -26,6 +33,11 @@ const routes = [
     path:'/todo',
     name:'Todo',
     component:Todo
+  },
+  {
+    path:'/covidd',
+    name:'CovidD',
+    component:CovidD
   },
   {
     path: '/about',
