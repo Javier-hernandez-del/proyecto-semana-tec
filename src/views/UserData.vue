@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h2> Datos de Interacción Con Usuarios </h2>
+        <h2> Datos de Interacción Con Usuarios: Búsqueda por Países </h2>
         <v-row>
             <v-col cols="12">
                 <FrequencyChart />

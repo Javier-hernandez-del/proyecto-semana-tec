@@ -6,7 +6,7 @@
       v-if="loading"
     ></v-progress-circular>
 
-        <apexchart v-if="!loading" width="100%" type="bar" :options="options" :series="series"></apexchart>
+        <apexchart v-if="!loading" width="100%" type="bar" :options="options" :series="series" v-bind:key=this.series[1].name></apexchart>
     </v-container>
 </template>
 
@@ -14,11 +14,14 @@
 export default {
     methods:{
 
-        async cargarDatos(){
+        cargarDatos(){
+            console.log("Funcion empezada");
+            this.series[0].name = ""
             this.loading=true;
             var datosC = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
             var datosD = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-            await this.axios.get('https://backend-semana-tec-javier.herokuapp.com/covidd/list').then((response)=>{
+            console.log("Tarea ha empezado");
+            this.axios.get('https://backend-semana-tec-javier.herokuapp.com/covidd/list').then((response)=>{
                 console.log(response);
                 response.data.forEach(element => {
                     switch (element["pais"]) {
@@ -43,7 +46,7 @@ export default {
                                 datosD[2] += 1;
                             }
                             break;
-                        case "brasil":
+                        case "brazil":
                         if (element["estado"] == "confirmed") {
                                 datosC[3] += 1;
                             } else {
@@ -171,9 +174,8 @@ export default {
                             break;
                     }
                 });
-
-
             })
+            console.log("Tarea Terminada")
             this.series = [{
                 name: "Casos Confirmados",
                 data: datosC
@@ -182,11 +184,13 @@ export default {
                 name: "Muertes",
                 data: datosD
             }]
+            console.log(this.series)
             this.loading=false;
         },
-        mounted() {
-            this.cargarDatos();
-        },
+    },
+    mounted() {
+        this.loading = true;
+        this.cargarDatos();
     },
 
     data: ()=>({
@@ -201,13 +205,16 @@ export default {
                     "República Dominicana", "Uruguay", "Venezuela"
                 ]
             },
+            chart: {
+                stacked: true,
+            }
         },
         series: [{
-            name: 'Casos Confirmados',
+            name: '',
             data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         },
         {
-            name: 'Muertes',
+            name: '',
             data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         }]
     })
