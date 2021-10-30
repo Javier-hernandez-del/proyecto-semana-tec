@@ -12,15 +12,21 @@
 
 <script>
 export default {
+
+    watch:{
+        loading:function(newValue,oldValue){
+            console.log(newValue)
+            console.log(oldValue)
+            this.cargarDatos();
+        }
+    },
+
     methods:{
 
         cargarDatos(){
-            console.log("Funcion empezada");
-            this.series[0].name = ""
             this.loading=true;
             var datosC = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
             var datosD = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-            console.log("Tarea ha empezado");
             this.axios.get('https://backend-semana-tec-javier.herokuapp.com/covidd/list').then((response)=>{
                 console.log(response);
                 response.data.forEach(element => {
@@ -175,7 +181,6 @@ export default {
                     }
                 });
             })
-            console.log("Tarea Terminada")
             this.series = [{
                 name: "Casos Confirmados",
                 data: datosC
@@ -189,7 +194,7 @@ export default {
         },
     },
     mounted() {
-        this.loading = true;
+        this.loading = false;
         this.cargarDatos();
     },
 
